@@ -22,7 +22,7 @@ namespace gps_base
     struct Time {
         base::Time cpu_time;
         base::Time gps_time;
-        double processing_latency;
+        double processing_latency = base::unknown<double>();
     };
 
     /** Representation of a position returned by a GNSS device, in WGS84 */
@@ -32,39 +32,39 @@ namespace gps_base
          *
          * It is in degrees for historical reasons
          */
-        double latitude;
+        double latitude = base::unknown<double>();
         /** Longitude in degrees
          *
          * It is in degrees for historical reasons
          */
-        double longitude;
+        double longitude = base::unknown<double>();
         /** Type of solution */
         GPS_SOLUTION_TYPES positionType;
         /** How many satellites are used in this solution */
-        int noOfSatellites;
+        int noOfSatellites = 0;
         /** Altitude above mean sea level */
-        double altitude;
+        double altitude = base::unknown<double>();
         /** Geoidal separation at this location
          *
          * The difference between the WGS-84 earth ellipsoid and mean-sea-level
          * (geoid), "-" means mean-sea-level below ellipsoid
          */
-        double geoidalSeparation;
+        double geoidalSeparation = base::unknown<double>();
         /** Age of differential corrections used in this solution if any
          *
          * Set to base::unknown<double> if no differential corrections are available
          */
-        double ageOfDifferentialCorrections;
+        double ageOfDifferentialCorrections = base::unknown<double>();
 
         /** Error on the east-west axis, in meters
          */
-        double deviationLatitude;
+        double deviationLatitude = base::unknown<double>();
         /** Error on the north-south axis, in meters
          */
-        double deviationLongitude;
+        double deviationLongitude = base::unknown<double>();
         /** Error in altitude, in meters
          */
-        double deviationAltitude;
+        double deviationAltitude = base::unknown<double>();
 
         Solution()
             : positionType(INVALID) {}
@@ -72,30 +72,30 @@ namespace gps_base
 
     struct Position {
         base::Time time;
-        double latitude;
-        double longitude;
+        double latitude = base::unknown<double>();
+        double longitude = base::unknown<double>();
         GPS_SOLUTION_TYPES positionType;
-        int noOfSatellites;
-        double altitude;
-        double geoidalSeparation;
-        double ageOfDifferentialCorrections;
+        int noOfSatellites = 0;
+        double altitude = base::unknown<double>();
+        double geoidalSeparation = base::unknown<double>();
+        double ageOfDifferentialCorrections = base::unknown<double>();
         Position()
             : positionType(INVALID) {}
     };
 
     struct Errors {
         base::Time time;
-        double deviationLatitude;
-        double deviationLongitude;
-        double deviationAltitude;
+        double deviationLatitude = base::unknown<double>();
+        double deviationLongitude = base::unknown<double>();
+        double deviationAltitude = base::unknown<double>();
     };
 
     struct SolutionQuality {
         base::Time time;
         std::vector<int> usedSatellites;
-        double pdop;
-        double hdop;
-        double vdop;
+        double pdop = base::unknown<double>();
+        double hdop = base::unknown<double>();
+        double vdop = base::unknown<double>();
     };
 
     enum CONSTELLATIONS {
@@ -110,7 +110,7 @@ namespace gps_base
         int PRN;
         int elevation;
         int azimuth;
-        double SNR;
+        double SNR = base::unknown<double>();
 
         static CONSTELLATIONS getConstellationFromPRN(int prn)
         {
